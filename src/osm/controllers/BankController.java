@@ -29,9 +29,10 @@ public class BankController {
     private final List<Bank> listBank=new ArrayList<>();
 
     
-    /*return company that has sepcified ID.
-    *@parameter int bankId is the key of search to get bank data.
-    *@return Bank bank is bank we search for by its ID.
+    /**
+     * To search by bank ID.
+     * @param bankId is the key of search to get bank data. 
+     * @return Bank bank is bank we search for by its ID.
     */
     public Bank getBankByID(int bankId) {
         
@@ -111,9 +112,10 @@ public class BankController {
         return listBank;
     }
     
-    /*add a new company to db and return true if added successfuly and false if not.
-    *@parameter Bank newBank is the new bank data to be added
-    *@return int genBankID is the generated bank id for new record bank.
+    /**
+     * Add a new company to db and return true if added successfully and false if not. 
+     * @param newBank is the new bank data to be added
+     * @return genBankID is the generated bank id for new record bank.
     */
     public int addBank(Bank newBank) {
 
@@ -153,11 +155,13 @@ public class BankController {
         return genBankID;
     }
 
-    /*edit an old offer with the new one and return the new offer.
-    *@parameter int bankId is the id of bank to be modified
-    *@return int rowsAffected is the affected rows by this operation.
-    */
-    public int editOffer(int bankId, Bank newBank) {
+    /**
+     * Edit an old offer with the new one and return the new offer.
+     * @param bankId is the id of bank to be modified
+     * @param newBank is the affected rows by this operation.
+     * @return rowsAffected the affected rows count.
+     */
+    public int editBank(int bankId, Bank newBank) {
        
         int rowsAffected = -1;
         String query = "UPDATE TABLE bank SET name=?, account_name=?, account_number=?, swift_code=?, currency=? WHERE bank_id=?";
@@ -186,10 +190,11 @@ public class BankController {
         return rowsAffected;
     }
 
-    /*remove an sepecified offer with RefNo. return true if successful. 
-    * @parameter int bankId is the id of bank to be removed
-    * @return int rowsAffected is the affected rows by this operation.
-    */
+    /**
+     * Remove an specified offer with RefNo. return true if successful. 
+     * @param bankId the ID of bank we want to remove.
+     * @return rowsAffected is the affected rows count
+     */
     public int RemoveBank(int bankId) {
        
         int rowsAffected = -1;

@@ -9,6 +9,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import osm.connection.Connector;
@@ -24,7 +26,9 @@ public class BankController {
     private int genBankID = -1;
     private ResultSet rs;
     private PreparedStatement stmt;
+    private final List<Bank> listBank=new ArrayList<>();
 
+    
     /*return company that has sepcified ID.
     *@parameter int bankId is the key of search to get bank data.
     *@return Bank bank is bank we search for by its ID.
@@ -66,6 +70,47 @@ public class BankController {
         return bank;
     }
 
+    /*
+    *Returns all bank data in table as list
+    *@return listBank is the list that has Objects of Bank retrived from db
+    */
+    public List<Bank> getAllBanks(){
+        String query="SELECT * FROM bank";
+        try {
+            stmt=Connector.open().prepareStatement(query);
+            rs=stmt.executeQuery();
+            while(rs.next()){
+                Bank recordBank=new Bank();
+                recordBank.setBankId(rs.getInt("bank_id"));
+                recordBank.setName(rs.getString("name"));
+                recordBank.setAccountName(rs.getString("account_name"));
+                recordBank.setAccountNumber(rs.getString("account_number"));
+                recordBank.setSwiftCode(rs.getString("swift_code"));
+                recordBank.setCurrency(rs.getString("currency"));
+                listBank.add(recordBank);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            Connector.close();
+        }
+        return listBank;
+    }
+    
     /*add a new company to db and return true if added successfuly and false if not.
     *@parameter Bank newBank is the new bank data to be added
     *@return int genBankID is the generated bank id for new record bank.

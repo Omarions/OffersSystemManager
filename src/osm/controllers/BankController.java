@@ -25,16 +25,19 @@ public class BankController {
     private ResultSet rs;
     private PreparedStatement stmt;
 
-    public Bank getBankByID(int bankID) {
-        //TODO
-        //return company that has sepcified ID.
+    /*return company that has sepcified ID.
+    *@parameter int bankId is the key of search to get bank data.
+    *@return Bank bank is bank we search for by its ID.
+    */
+    public Bank getBankByID(int bankId) {
+        
         try {
             String query = "SELECT * FROM bank WHERE bank_id=?";
             stmt = Connector.open().prepareStatement(query);
-            stmt.setInt(1, bankID);
+            stmt.setInt(1, bankId);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                bank.setBankId(bankID);
+                bank.setBankId(bankId);
                 bank.setName(rs.getString("name"));
                 bank.setAccountName(rs.getString("account_name"));
                 bank.setAccountNumber(rs.getString("account_number"));

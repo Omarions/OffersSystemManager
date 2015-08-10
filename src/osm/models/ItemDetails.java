@@ -46,7 +46,7 @@ public class ItemDetails implements Serializable {
     private double price;
     @JoinColumn(name = "item_id", referencedColumnName = "item_id")
     @ManyToOne(optional = false)
-    private Item itemId;
+    private int itemId;
 
     public ItemDetails() {
     }
@@ -85,11 +85,11 @@ public class ItemDetails implements Serializable {
         this.price = price;
     }
 
-    public Item getItemId() {
+    public int getItemId() {
         return itemId;
     }
 
-    public void setItemId(Item itemId) {
+    public void setItemId(int itemId) {
         this.itemId = itemId;
     }
 

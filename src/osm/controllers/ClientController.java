@@ -77,7 +77,7 @@ public class ClientController {
      * @return List of all clients data from DB.
      */ 
     public List<Client> getAllClients(){
-        String query="SELECT * FROM bank";
+        String query="SELECT * FROM client";
         try {
             stmt=Connector.open().prepareStatement(query);
             rs=stmt.executeQuery();
@@ -169,7 +169,7 @@ public class ClientController {
     public int editClient(int clientId, Client newClient) {
        
         int rowsAffected = -1;
-        String query = "UPDATE TABLE bank SET name=?, address=?, tel=?, fax=?, email=?, website=?, contact_name=? WHERE bank_id=?";
+        String query = "UPDATE TABLE client SET name=?, address=?, tel=?, fax=?, email=?, website=?, contact_name=? WHERE bank_id=?";
         try {
             stmt = Connector.open().prepareStatement(query);
             stmt.setString(1, newClient.getName());
@@ -179,7 +179,7 @@ public class ClientController {
             stmt.setString(5, newClient.getEmail());
             stmt.setString(6, newClient.getWebsite());
             stmt.setString(7, newClient.getContactName());
-            stmt.setInt(8, newClient.getClientId());
+            stmt.setInt(8, clientId);
             rowsAffected = stmt.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(ClientController.class.getName()).log(Level.SEVERE, null, ex);
@@ -196,18 +196,13 @@ public class ClientController {
 
         return rowsAffected;
     }
-
-    /*
-    * @parameter int bankId 
-    * @return int 
-    */
-
+    
+    
     /**
      * Remove an sepcified Client with client ID. 
      * @param clientId is the id of client to be removed
      * @return rowsAffected is the affected rows count by this operation.
-     */
-    
+     */  
     public int RemoveClient(int clientId) {
        
         int rowsAffected = -1;

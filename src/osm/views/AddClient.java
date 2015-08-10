@@ -5,6 +5,10 @@
  */
 package osm.views;
 
+import javax.swing.JOptionPane;
+import osm.controllers.ClientController;
+import osm.models.Client;
+
 /**
  *
  * @author Omar
@@ -152,6 +156,11 @@ public class AddClient extends javax.swing.JFrame {
         });
 
         jbtnCancel.setText("Cancel");
+        jbtnCancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnCancelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,8 +189,40 @@ public class AddClient extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jbtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnSaveActionPerformed
-        // TODO add your handling code here:
+        // create variables to store data from component to use it.
+        String name=jtfClientName.getText().trim();
+        String address=jtaClientAddress.getText().trim();
+        String tel=jtfClientTel.getText().trim();
+        String fax=jtfClientFax.getText().trim();
+        String email=jtfClientEmail.getText().trim();
+        String website=jtfClientWebsite.getText().trim();
+        String contactName=jtfClientContactName.getText().trim();
+        
+        //Create object of controller to add new client.
+        ClientController cc=new ClientController();
+        
+        //Create object of Client with data to add it to db.
+        Client newClient=new Client();
+        newClient.setName(name);
+        newClient.setAddress(address);
+        newClient.setTel(tel);
+        newClient.setFax(fax);
+        newClient.setEmail(email);
+        newClient.setWebsite(website);
+        newClient.setContactName(contactName);
+        
+        int genClientID=cc.addClient(newClient);
+        
+        //Show a message with generated ID of new client.
+        JOptionPane.showMessageDialog(this,"Client added successfully with ID [" + genClientID + "]");
+        //Hide the form and return to previous form.
+        this.setVisible(false);
     }//GEN-LAST:event_jbtnSaveActionPerformed
+
+    private void jbtnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnCancelActionPerformed
+        // TODO add your handling code here:
+        this.setVisible(false);
+    }//GEN-LAST:event_jbtnCancelActionPerformed
 
     /**
      * @param args the command line arguments

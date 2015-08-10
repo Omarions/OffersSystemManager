@@ -104,6 +104,11 @@ public class MainForm extends javax.swing.JFrame {
         jbtnTBAddClient.setFocusable(false);
         jbtnTBAddClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jbtnTBAddClient.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnTBAddClient.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnTBAddClientActionPerformed(evt);
+            }
+        });
         jToolBar1.add(jbtnTBAddClient);
 
         jbtnTBAddBank.setText("Add Bank");
@@ -420,6 +425,12 @@ public class MainForm extends javax.swing.JFrame {
         AddBank addBankForm=new AddBank();
         addBankForm.setVisible(true);
     }//GEN-LAST:event_jbtnTBAddBankActionPerformed
+
+    private void jbtnTBAddClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTBAddClientActionPerformed
+        // TODO add your handling code here:
+        AddClient addClientForm=new AddClient();
+        addClientForm.setVisible(true);
+    }//GEN-LAST:event_jbtnTBAddClientActionPerformed
 
     /**
      * @param args the command line arguments

@@ -167,7 +167,7 @@ public class AddBank extends javax.swing.JFrame {
         
         int genBankID=bc.addBank(newBank);
         
-        JOptionPane.showMessageDialog(this,"Bank added successfully!. The generated bank ID is " + genBankID);
+        JOptionPane.showMessageDialog(this,"Bank added successfully with ID [" + genBankID + "]");
         
         setVisible(false);
     }//GEN-LAST:event_jbtnSaveActionPerformed

@@ -33,6 +33,8 @@ public class MainForm extends javax.swing.JFrame {
         jToolBar1 = new javax.swing.JToolBar();
         jbtnTBAddOffer = new javax.swing.JButton();
         jbtnTBAddItem = new javax.swing.JButton();
+        jbtnTBAddClient = new javax.swing.JButton();
+        jbtnTBAddBank = new javax.swing.JButton();
         jpnlSearch = new javax.swing.JPanel();
         jtpSearch = new javax.swing.JTabbedPane();
         jpnlSearchOffers = new javax.swing.JPanel();
@@ -97,6 +99,23 @@ public class MainForm extends javax.swing.JFrame {
             }
         });
         jToolBar1.add(jbtnTBAddItem);
+
+        jbtnTBAddClient.setText("Add Client");
+        jbtnTBAddClient.setFocusable(false);
+        jbtnTBAddClient.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnTBAddClient.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jbtnTBAddClient);
+
+        jbtnTBAddBank.setText("Add Bank");
+        jbtnTBAddBank.setFocusable(false);
+        jbtnTBAddBank.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jbtnTBAddBank.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jbtnTBAddBank.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbtnTBAddBankActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jbtnTBAddBank);
 
         jpnlSearch.setBorder(javax.swing.BorderFactory.createTitledBorder("Search"));
 
@@ -396,6 +415,12 @@ public class MainForm extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jbtnTBAddOfferActionPerformed
 
+    private void jbtnTBAddBankActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbtnTBAddBankActionPerformed
+        // TODO add your handling code here:
+        AddBank addBankForm=new AddBank();
+        addBankForm.setVisible(true);
+    }//GEN-LAST:event_jbtnTBAddBankActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -455,6 +480,8 @@ public class MainForm extends javax.swing.JFrame {
     private javax.swing.JButton jbtnPrev;
     private javax.swing.JButton jbtnPrevGroup;
     private javax.swing.JButton jbtnRemove;
+    private javax.swing.JButton jbtnTBAddBank;
+    private javax.swing.JButton jbtnTBAddClient;
     private javax.swing.JButton jbtnTBAddItem;
     private javax.swing.JButton jbtnTBAddOffer;
     private javax.swing.JCheckBox jcbxSearchClientID;

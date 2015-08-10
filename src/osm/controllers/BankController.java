@@ -19,33 +19,86 @@ import osm.models.Bank;
  */
 public class BankController {
     private Bank bank;
+    private int genBankID= -1;
+    private ResultSet rs;
+    private PreparedStatement stmt;
     
     public Bank getBankByID(int bankID){
         //TODO
         //return company that has sepcified ID.
         try {
             String query="SELECT * FROM bank WHERE bank_id=?";
-            PreparedStatement stmt=Connector.open().prepareStatement(query);
+            stmt=Connector.open().prepareStatement(query);
             stmt.setInt(1, bankID);
-            ResultSet set=stmt.executeQuery();
-            while(set.next()){
+            rs=stmt.executeQuery();
+            while(rs.next()){
                 bank.setBankId(bankID);
-                bank.setName(set.getString("name"));
-                bank.setAccountName(set.getString("account_name"));
-                bank.setAccountNumber(set.getString("account_number"));
-                bank.setSwiftCode(set.getString("swift_code"));
-                bank.setCurrency(set.getString("Currency"));
+                bank.setName(rs.getString("name"));
+                bank.setAccountName(rs.getString("account_name"));
+                bank.setAccountNumber(rs.getString("account_number"));
+                bank.setSwiftCode(rs.getString("swift_code"));
+                bank.setCurrency(rs.getString("Currency"));
             }
         } catch (SQLException ex) {
             Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            Connector.close();
         }
         return bank;
    } 
    
-   public boolean addBank(Bank newBank){
+   public int addBank(Bank newBank){
        //TODO
        //add a new company to db and return true if added successfuly and false if not.
-       return false;
+       
+       String query="INSERT INTO bank (bank_id,name,account_name,account_number,swift_code,currency) VALUES(0,?,?,?,?,?)";
+        try {
+            stmt=Connector.open().prepareStatement(query,Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, newBank.getName());
+            stmt.setString(2, newBank.getAccountName());
+            stmt.setString(3, newBank.getAccountNumber());
+            stmt.setString(4, newBank.getSwiftCode());
+            stmt.setString(5, newBank.getCurrency());
+            stmt.executeUpdate();
+            rs=stmt.getGeneratedKeys();
+            if(rs.next()){
+                genBankID=rs.getInt(1);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+        }finally{
+            if(rs!=null){
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            if(stmt!=null){
+                try {
+                    stmt.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(BankController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+            Connector.close();
+        }
+       
+       return genBankID;
    }
    
    public Bank editOffer(Bank oldBank, Bank newBank){

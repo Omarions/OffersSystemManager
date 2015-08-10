@@ -5,6 +5,8 @@
  */
 package osm;
 
+import osm.views.MainForm;
+
 /**
  *
  * @author Omar
@@ -16,6 +18,8 @@ public class OffersSystemManager {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        MainForm mForm=new MainForm();
+        mForm.setVisible(true);
     }
     
 }
